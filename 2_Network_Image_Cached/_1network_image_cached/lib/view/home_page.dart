@@ -1,5 +1,24 @@
 
 
+/*
+
+this is amather way
+CachedNetworkImage(
+  imageUrl: "http://via.placeholder.com/200x150",
+  imageBuilder: (context, imageProvider) => Container(
+    decoration: BoxDecoration(
+      image: DecorationImage(
+          image: imageProvider,
+          fit: BoxFit.cover,
+          colorFilter:
+              ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+    ),
+  ),
+  placeholder: (context, url) => CircularProgressIndicator(),
+  errorWidget: (context, url, error) => Icon(Icons.error),
+),
+*/
+
 import 'package:_1network_image_cached/api/image_api_key.dart';
 import 'package:_1network_image_cached/view/nex_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
