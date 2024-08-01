@@ -9,13 +9,13 @@ class NextScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold( 
 
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
+      body: const Padding(
+        padding: EdgeInsets.all(18.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
         
-          Container( 
+          SizedBox( 
         
             height: 300,
             width: double.infinity,
@@ -33,8 +33,8 @@ class NextScreen extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        child: Text("Go Back"),
+        child: const Text("Go Back"),
       ),
     );
   }
-}
+}     
