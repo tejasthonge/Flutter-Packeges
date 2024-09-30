@@ -94,6 +94,15 @@ flutter:
 
 flutter_native_splash:
   #munimuwe we have one key we have to provide which is the color or background image 
-  color: "#ffffff"
+  # color: "#ffffff"
   image: "assets/logo.png"
+  background_image: "assets/background.png"
+  branding: "assets/branding.png"
+
+  #for higher version of android of >12
+  #we must have to confugure the 
+  android_12:
+    image: "assets/android_logo.png"
+    background_image: "assets/android_background.png"
+    branding: "assets/android_branding.png"
   
