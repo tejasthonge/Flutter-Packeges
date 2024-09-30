@@ -1,0 +1,9 @@
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  #munimuwe we have one key we have to provide which is the color or background image 
+  color: "#ffffff"
+  image: "assets/logo.png"
+  

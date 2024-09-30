@@ -1,0 +1,30 @@
+
+
+
+Spash Screen :
+
+    it screen showing at the fist as app is running 
+    - all the time app takes some time to load the data it may be the server side or local that time we
+    - show the slpash screen 
+
+    -but showing the splash screen by treaditanl way also get some time so 
+    -this package will come in the pictuere 
+
+
+#Flutter Native Spash:
+
+    -it was implemated nativly outside the framworks
+    -show the splash screen imidetly as the flutter is loading 
+    -only showing when it is neadded
+    -it requires for all the ios apps
+
+
+
+
+Configuration:
+
+    1 -install the flutter_native_spash package
+    2 -create slpash screen Configuration
+    3 -genarate slpash screen form the Configuration
+    when any update repete the 2 and 3 stapes
+    
