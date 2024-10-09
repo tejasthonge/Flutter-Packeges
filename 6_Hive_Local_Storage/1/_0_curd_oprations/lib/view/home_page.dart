@@ -1,9 +1,12 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:_0_curd_oprations/view/histry_page.dart';
+import 'package:_0_curd_oprations/view/image_pic.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,7 +17,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Box? _todosBox;
   Box? todoHoistryBox;
+  Box? userInfoBox;
+  File? profilePic;
+  var userInfoKey;
   final TextEditingController _todoTEC = TextEditingController();
+
+  storeProfilePic({String? picPath}) {
+     if (picPath != null) {
+      userInfoBox!.put(
+        'profilePic',
+        picPath,
+      );
+      setState(() {
+                  var profilePicPath = userInfoBox!.get("profilePic");
+                  profilePic = File(profilePicPath);
+      });
+
+    }
+
+
+
+  
+  }
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +59,17 @@ class _HomePageState extends State<HomePage> {
         todoHoistryBox = box;
       });
     });
+
+    Hive.openBox("userinfo_box").then((Box box) {
+      setState(() {
+        userInfoBox = box;
+        var profilePicPath = userInfoBox!.get("profilePic");
+        profilePic = File(profilePicPath);
+        log(profilePic.toString());
+        log(box.keys.length.toString());
+      });
+    });
+ 
   }
 
   @override
@@ -41,9 +77,52 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         // toolbarHeight,
-        leading: Padding(
-          padding: const EdgeInsets.all(7.0),
-          child: CircleAvatar(),
+        leading: GestureDetector(
+          onTap: () async {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      content: CircleAvatar(
+                        radius: 50,
+                          backgroundImage: profilePic != null
+                              ? FileImage(profilePic!,scale: 0.5                              
+                              )
+                              : null,
+                          child:
+                              profilePic == null ? Icon(Icons.person) : null),
+                      actionsAlignment: MainAxisAlignment.center,
+                      actions: [
+                        MaterialButton(
+                          color: Colors.red.shade900,
+                          onPressed: () async {
+                            //  log(profilePic.toString());
+
+                            XFile? selectedPic =
+                                await ImageService.pickGalleryImage();
+                            //  profilePic =File(selectedPic!.path);
+                            if (selectedPic != null) {
+                              storeProfilePic(picPath: selectedPic.path);
+                            }
+                            //  log(profilePic.toString());
+                          },
+                          child: Text(
+                            "Update Picture",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ));
+          },
+          child: Padding(
+            padding: EdgeInsets.all(7.0),
+            child: CircleAvatar(
+              backgroundImage:
+                  profilePic != null ? FileImage(profilePic!) : null,
+              child: profilePic == null ? Icon(Icons.person) : null,
+            ),
+          ),
         ),
         title: const Text(
           "Note it!",
@@ -72,6 +151,12 @@ class _HomePageState extends State<HomePage> {
           children: [
             FloatingActionButton(
                 onPressed: () {
+                  var todoKey = _todosBox!.keys.toList();
+                  for (int i = 0; i < _todosBox!.length; i++) {
+                    var todoUp = _todosBox!.get(todoKey[i]);
+                    todoUp["deletedTime"] = DateTime.now();
+                    todoHoistryBox!.add(todoUp);
+                  }
                   _todosBox!.clear();
                 },
                 child: Icon(

@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
+
+//remain hive does not support to stor the bytes like images we can stroe the path of that image 
+
 void main()async {
   WidgetsFlutterBinding.ensureInitialized(); //we are ensuring that the the WidgetsFlutterBinding to the framework
   
